@@ -1,0 +1,72 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bt/css/bootstrap.css' %}">
+    <script src="{% static 'bt/js/bootstrap.js' %}"></script>
+    <title>Document</title>
+</head>
+<body class="container">
+    <h1>Register student</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <form action="" method="get">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="tt" id="tt" placeholder="Enter TT Number and press enter... ">
+                    <div class="card card-body my-2">
+                      Please make sure all the unverified images are located at {{path}}
+                    </div>
+                </div>
+            </form>
+            {% if not student %}
+            <div class="card card-body">
+
+              <img src="/{{path}}/{{search}}.jpg" alt="img" width="90" height="90">
+            </div>
+            {% endif %}
+            <div class="card card-body my-2">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">TT Number</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Results</th>
+                        <th scope="col">Verified</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        {% if student %}
+                        <th scope="row"><img src="{{student.image.url}}" alt="image" srcset="" width="80" height="80"></th>
+                        <td>{{student.tt_number}}</td>
+                        <td>{{student.score}}</td>
+                        <td>{{student.results}}</td>
+                        <td>{{student.verified}}</td>
+                        {% else %}
+                        <td colspan="5" class="justify-content-center">No match</td>
+                        {% endif %}
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+{% if not student %}
+            <div class="card card-body">
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{form|crispy}}
+               <button class="btn btn-outline-success btn-lg my-2 " type="submit">Submitt</button>
+                </form>
+            </div>
+
+    </div>
+    {% endif %}
+</body>
+</html>
