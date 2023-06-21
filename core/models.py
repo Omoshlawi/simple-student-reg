@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -16,4 +17,12 @@ class Students(models.Model):
     test_series = models.CharField(max_length=50)
     result = models.CharField(max_length=50)
     photo_link = models.CharField(max_length=50)
-    
+
+    def get_field_values(self):
+        return map(
+            lambda field: {'name': str(field).upper().replace("_", " "), 'value': getattr(self, field)},
+            [field.name for field in Students._meta.fields]
+        )
+
+    def get_image(self):
+        return "-".join(str(self.tt_number).split("/")[1:]) + ".jpg"

@@ -35,3 +35,5 @@ You can confirm the recode through the admin panel
 
 ## Exporting database data into excel file
 
+run `python manage.py export_excel <path/to/file.xlsx>` to export data into csv
+
