@@ -21,14 +21,8 @@ class Command(BaseCommand):
             # get values
             else:
                 values = [cell.value if cell.value else "" for cell in row]
-                # kwargs = dict(zip(self.headers, values))
-                student = Students()
-                for key, value in zip(self.headers, values):
-                    setattr(student, key, value)
+                kwargs = dict(zip(self.headers, values))
+                student = Students(**kwargs)
                 student.save()
-                self.stdout.write(self.style.SUCCESS(f'\rSuccessfully imported row {index}'), ending='')
-
-            if index == 10:
-                break
-
-        self.stdout.write(self.style.SUCCESS('\nData import completed.'))
+                self.stdout.write(self.style.SUCCESS(f'\r[✔]Successfully imported row ....{index}'), ending='')
+        self.stdout.write(self.style.SUCCESS('\n[✔]Data import completed.'))
