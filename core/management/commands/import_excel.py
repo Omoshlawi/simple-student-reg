@@ -28,4 +28,7 @@ class Command(BaseCommand):
                 student.save()
                 self.stdout.write(self.style.SUCCESS(f'\rSuccessfully imported row {index}'), ending='')
 
-        self.stdout.write(self.style.SUCCESS('Data import completed.'))
+            if index == 10:
+                break
+
+        self.stdout.write(self.style.SUCCESS('\nData import completed.'))
