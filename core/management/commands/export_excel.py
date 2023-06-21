@@ -12,19 +12,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         file_path = options['file_path']
         headers = [field.name for field in Students._meta.fields]
+        csv_header = [str(field).upper().replace("_", " ") for field in headers]
         rows = Students.objects.values_list(*headers)
-
         workbook = Workbook()
         sheet = workbook.active
-
         # Write headers
-        sheet.append(headers)
-
+        sheet.append(csv_header)
         # Write rows
-        for row in rows:
+        for index, row in enumerate(rows):
             sheet.append(row)
-
+            self.stdout.write(self.style.SUCCESS(f'\r[✔]Successfully exported row ....{index + 1}'), ending='')
         workbook.save(file_path)
-
-        self.stdout.write(self.style.SUCCESS(f'[✔] Data exported to Excel: {file_path}'))
+        self.stdout.write(self.style.SUCCESS(f'\n[✔] Data exported to Excel: {file_path}'))
 
