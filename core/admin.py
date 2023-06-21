@@ -7,4 +7,4 @@ from core.models import Students
 
 @admin.register(Students)
 class StudentsAdmin(admin.ModelAdmin):
-    list_display = ['tt_number', 'results','verified', 'image']
+    list_display = ['tt_number', 'full_name', 'gender', 'id_number', 'centre_code', 'centre_name', 'grade', 'trade_code', 'trade_name', 'test_series', 'result', 'photo_link']
